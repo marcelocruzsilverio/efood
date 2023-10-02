@@ -1,8 +1,11 @@
+import { GlobalCss } from './styles'
+
 function App() {
   return (
-    <div className="App">
+    <>
+      <GlobalCss />
       <h1>Hello</h1>
-    </div>
+    </>
   )
 }
 
