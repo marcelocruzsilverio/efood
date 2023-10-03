@@ -1,18 +1,16 @@
+import { BrowserRouter } from 'react-router-dom'
+
 import Footer from './components/Footer'
-import Hero from './components/Hero'
-import RestaurantsList from './components/RestaurantsList'
 import { GlobalCss } from './styles'
+import Ways from './routes'
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <GlobalCss />
-      <Hero />
-      <div className="container">
-        <RestaurantsList />
-      </div>
+      <Ways />
       <Footer />
-    </>
+    </BrowserRouter>
   )
 }
 
