@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components'
 
 export const colors = {
-  branco: '#FFFFFF',
+  white: '#FFFFFF',
   salmon: '#E66767',
   darkBeige: '#FFEBD9',
   Beige: '#FFF8F2'
@@ -19,6 +19,7 @@ export const GlobalCss = createGlobalStyle`
  body {
   background-color: ${colors.Beige};
   color: ${colors.salmon};
+  padding-bottom: 80px;
  }
 
  .container {
