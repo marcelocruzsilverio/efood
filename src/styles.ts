@@ -19,7 +19,7 @@ export const GlobalCss = createGlobalStyle`
  body {
   background-color: ${colors.Beige};
   color: ${colors.salmon};
-  padding-bottom: 80px;
+  /* padding-bottom: 80px; */
  }
 
  .container {
