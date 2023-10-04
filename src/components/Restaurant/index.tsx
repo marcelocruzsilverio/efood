@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 import star from '../../assets/star.png'
 import Tag from '../Tag'
 import {
@@ -45,7 +47,7 @@ const Restaurant = ({
       </RestaurantInfos>
       <Description>{description}</Description>
       <MoreInfoButton>
-        <a href="#">Saiba Mais</a>
+        <Link to="/restaurantPage">Saiba Mais</Link>
       </MoreInfoButton>
     </RestaurantInfoContainer>
   </RestaurantCardWrapper>
