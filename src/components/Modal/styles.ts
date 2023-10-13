@@ -21,6 +21,7 @@ export const ModalWrapper = styled.div`
 
 export const CloseModal = styled.div`
   position: absolute;
+  cursor: pointer;
   top: 8px;
   right: 8px;
   width: 16px;
