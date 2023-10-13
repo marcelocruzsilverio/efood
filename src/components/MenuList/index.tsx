@@ -1,26 +1,45 @@
-import Carte from '../../models/Menu'
-
-import MenuCard from '../MenuCard'
+import { useState } from 'react'
+import { MenuItem } from '../../pages/Home'
+import MenuModal from '../Modal'
 
 import { MenuCardList } from './styles'
+import Menu from '../Menu'
 
-type PropsMenu = {
-  menus: Carte[]
+type MenuListProps = {
+  menus: MenuItem[]
 }
 
-const MenuList = ({ menus }: PropsMenu) => (
-  <div className="container">
-    <MenuCardList>
-      {menus.map((menu) => (
-        <MenuCard
-          key={menu.title}
-          image={menu.image}
-          title={menu.title}
-          description={menu.description}
-        />
-      ))}
-    </MenuCardList>
-  </div>
-)
+const MenuList = ({ menus }: MenuListProps) => {
+  const [selectedMenu, setSelectedMenu] = useState<MenuItem | null>(null)
+
+  const handleMenuClick = (menu: MenuItem) => {
+    setSelectedMenu(menu)
+  }
+
+  const handleCloseModal = () => {
+    setSelectedMenu(null)
+  }
+
+  return (
+    <div className="container">
+      <MenuCardList>
+        {menus.map((menu) => (
+          <li key={menu.id}>
+            <Menu
+              id={menu.id}
+              image={menu.foto}
+              title={menu.nome}
+              description={menu.descricao}
+              onAddToCart={() => handleMenuClick(menu)}
+            />
+          </li>
+        ))}
+      </MenuCardList>
+      {selectedMenu && (
+        <MenuModal onClose={handleCloseModal} menu={selectedMenu} />
+      )}
+    </div>
+  )
+}
 
 export default MenuList

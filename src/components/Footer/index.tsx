@@ -1,7 +1,7 @@
-import logo from '../../assets/logo.svg'
-import instagran from '../../assets/instagram.png'
-import facebook from '../../assets/facebook.png'
-import twitter from '../../assets/twitter.png'
+import logo from '../../assets/images/logo.svg'
+import instagran from '../../assets/images/instagram.png'
+import facebook from '../../assets/images/facebook.png'
+import twitter from '../../assets/images/twitter.png'
 import {
   FooterContainer,
   LogoContainer,

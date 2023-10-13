@@ -12,9 +12,10 @@ type Props = {
   image: string
   title: string
   description: string
+  onAddToCart: () => void
 }
 
-const Menu = ({ image, title, description }: Props) => {
+const Menu = ({ image, title, description, onAddToCart }: Props) => {
   return (
     <MenuCardWrapper>
       <ImageContainer>
@@ -26,9 +27,7 @@ const Menu = ({ image, title, description }: Props) => {
         </MenuTitle>
         <Description>{description}</Description>
       </MenuInfoContainer>
-      <AddButton>
-        <a href="#">Adicionar ao Carrinho</a>
-      </AddButton>
+      <AddButton onClick={onAddToCart}>Adicionar ao Carrinho</AddButton>
     </MenuCardWrapper>
   )
 }

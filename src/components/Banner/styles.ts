@@ -1,7 +1,5 @@
 import styled from 'styled-components'
 
-import italiana from '../../assets/italian.png'
-
 export const BannerContainer = styled.div`
   width: 100%;
   height: 280px;
@@ -21,7 +19,6 @@ export const BannerContainer = styled.div`
     background-color: rgba(0, 0, 0, 0.5);
   }
 
-  background-image: url(${italiana});
   background-repeat: no-repeat;
   background-size: cover;
 

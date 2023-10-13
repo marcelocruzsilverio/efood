@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import star from '../../assets/star.png'
+import star from '../../assets/images/star.png'
 import Tag from '../Tag'
 import {
   Description,
@@ -13,15 +13,17 @@ import {
 } from './styles'
 
 type Props = {
+  id: number
   image: string
-  emphasis?: string
+  emphasis?: boolean
   category: string
   title: string
-  rate: string
+  rate: number
   description: string
 }
 
 const Restaurant = ({
+  id,
   image,
   emphasis,
   category,
@@ -33,7 +35,7 @@ const Restaurant = ({
     <ImageContainer>
       <img src={image} alt="" />
       <Infos>
-        {emphasis && <Tag>{emphasis}</Tag>}
+        {emphasis && <Tag>Destaque da Semana</Tag>}
         <Tag>{category}</Tag>
       </Infos>
     </ImageContainer>
@@ -47,7 +49,7 @@ const Restaurant = ({
       </RestaurantInfos>
       <Description>{description}</Description>
       <MoreInfoButton>
-        <Link to="/restaurantPage">Saiba Mais</Link>
+        <Link to={`/restaurantPage/${id}`}>Saiba Mais</Link>
       </MoreInfoButton>
     </RestaurantInfoContainer>
   </RestaurantCardWrapper>

@@ -3,13 +3,19 @@ import { colors } from '../../styles'
 
 export const RestaurantCardWrapper = styled.div`
   max-width: 472px;
-  /* height: 398px; */
   position: relative;
   background: ${colors.white};
 `
 
 export const ImageContainer = styled.div`
   height: 217px;
+  width: 472px;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `
 
 export const Infos = styled.div`
@@ -56,6 +62,7 @@ export const Description = styled.p`
   font-weight: 400;
   line-height: 22px;
   margin: 16px 0;
+  min-height: 110px;
 `
 
 export const MoreInfoButton = styled.button`

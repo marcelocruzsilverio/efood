@@ -1,67 +1,55 @@
-import Eatery from '../../models/Restaurant'
+import { useEffect, useState } from 'react'
 
-import japanese from '../../assets/restaurant_japanese.png'
-import italian from '../../assets/italian.png'
 import RestaurantsList from '../../components/RestaurantsList'
 import Hero from '../../components/Hero'
 
-const restaurants: Eatery[] = [
-  {
-    image: japanese,
-    category: 'Japanese',
-    emphasis: 'Destaque da semana',
-    title: 'Hioki Sushi',
-    rate: '4.9',
-    description:
-      'Peça já o melhor da culinária japonesa no conforto da sua casa! Sushis frescos, sashimis deliciosos e pratos quentes irresistíveis. Entrega rápida, embalagens cuidadosas e qualidade garantida.Experimente o Japão sem sair do lar com nosso delivery!'
-  },
-  {
-    image: italian,
-    category: 'Italiana',
-    title: 'La Dolce Vita Trattoria',
-    rate: '4.6',
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!'
-  },
-  {
-    image: italian,
-    category: 'Italiana',
-    title: 'La Dolce Vita Trattoria',
-    rate: '4.6',
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!'
-  },
-  {
-    image: italian,
-    category: 'Italiana',
-    title: 'La Dolce Vita Trattoria',
-    rate: '4.6',
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!'
-  },
-  {
-    image: italian,
-    category: 'Italiana',
-    title: 'La Dolce Vita Trattoria',
-    rate: '4.6',
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!'
-  },
-  {
-    image: italian,
-    category: 'Italiana',
-    title: 'La Dolce Vita Trattoria',
-    rate: '4.6',
-    description:
-      'A La Dolce Vita Trattoria leva a autêntica cozinha italiana até você! Desfrute de massas caseiras, pizzas deliciosas e risotos incríveis, tudo no conforto do seu lar. Entrega rápida, pratos bem embalados e sabor inesquecível. Peça já!'
-  }
-]
+export type MenuItem = {
+  foto: string
+  preco: number
+  id: number
+  nome: string
+  descricao: string
+  porcao: string
+}
 
-const Home = () => (
-  <>
-    <Hero />
-    <RestaurantsList restaurants={restaurants} />
-  </>
-)
+export type Eatery = {
+  id: number
+  titulo: string
+  destacado: boolean
+  tipo: string
+  avaliacao: number
+  descricao: string
+  capa: string
+  cardapio: MenuItem[]
+}
+
+const Home = () => {
+  const [restaurants, setRestaurants] = useState<Eatery[]>([])
+  const [loading, setLoading] = useState(true) // Estado para rastrear o carregamento
+
+  useEffect(() => {
+    fetch('https://fake-api-tau.vercel.app/api/efood/restaurantes')
+      .then((response) => response.json())
+      .then((data) => {
+        setRestaurants(data)
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.error('Ocorreu um erro ao buscar os dados da API:', error)
+        setLoading(false)
+      })
+  }, [])
+
+  if (loading) {
+    return <h3>Carregando...</h3>
+  }
+
+  return (
+    <>
+      <Hero />
+      <RestaurantsList restaurants={restaurants} />
+    </>
+  )
+}
 
 export default Home

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import heroImg from '../../assets/hero.png'
+import heroImg from '../../assets/images/hero.png'
 import { colors } from '../../styles'
 
 export const HeaderBar = styled.header`
