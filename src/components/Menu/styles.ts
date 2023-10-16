@@ -5,6 +5,10 @@ export const MenuCardWrapper = styled.div`
   max-width: 320px;
   background: ${colors.salmon};
   padding: 8px;
+
+  @media (max-width: 1024px) {
+    max-width: 100%;
+  }
 `
 
 export const ImageContainer = styled.div`
@@ -13,6 +17,10 @@ export const ImageContainer = styled.div`
     max-width: 304px;
     width: 100%;
     object-fit: cover;
+
+    @media (max-width: 1024px) {
+      max-width: 100%;
+    }
   }
 `
 export const MenuInfoContainer = styled.div`

@@ -6,6 +6,7 @@ import Header from '../../components/Header'
 
 import MenuList from '../../components/MenuList'
 import { Eatery } from '../Home'
+import Cart from '../../components/Cart'
 
 const RestaurantPage = () => {
   const { id } = useParams()
@@ -34,6 +35,7 @@ const RestaurantPage = () => {
         restaurantTitle={restaurantData.titulo}
       />
       <MenuList menus={restaurantData.cardapio} />
+      <Cart />
     </>
   )
 }

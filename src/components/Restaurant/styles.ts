@@ -3,6 +3,7 @@ import { colors } from '../../styles'
 
 export const RestaurantCardWrapper = styled.div`
   max-width: 472px;
+  width: 100%;
   position: relative;
   background: ${colors.white};
 `
@@ -15,6 +16,14 @@ export const ImageContainer = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  @media (max-width: 1024px) {
+    width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
   }
 `
 

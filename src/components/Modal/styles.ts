@@ -17,6 +17,18 @@ export const ModalWrapper = styled.div`
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
   }
+
+  @media (max-width: 1024px) {
+    max-width: 90%;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 80%;
+  }
+
+  @media (max-width: 480px) {
+    top: 100px;
+  }
 `
 
 export const CloseModal = styled.div`
@@ -34,23 +46,37 @@ export const ModalTitle = styled.h3`
 `
 export const ImageModalContainer = styled.div`
   margin-right: 24px;
+  width: 280px;
+  height: 280px;
 
   img {
-    width: 280px;
-    height: 280px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 480px) {
+    max-width: 280px;
+    width: 100%;
+    max-height: 280px;
+    height: 100%;
     object-fit: cover;
   }
 `
 
 export const ModalContent = styled.div`
   margin-top: 32px;
-  height: 344px;
+  height: auto;
   background-color: ${colors.salmon};
   color: ${colors.white};
   position: relative;
   padding: 32px;
   display: flex;
   z-index: 1;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
 `
 export const DescriptionContainer = styled.div`
   max-width: 656px;
@@ -63,6 +89,10 @@ export const MenuModalDescription = styled.p`
   font-size: 14px;
   font-weight: 400;
   line-height: 22px;
+
+  @media (max-width: 480px) {
+    line-height: 16px;
+  }
 `
 
 export const Portion = styled.p`

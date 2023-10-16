@@ -16,6 +16,10 @@ export const LinkContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
+
+  @media (max-width: 480px) {
+    flex-direction: column;
+  }
 `
 export const LinkRestaurant = styled.div`
   margin-right: 80px;
@@ -27,10 +31,19 @@ export const LinkRestaurant = styled.div`
     text-decoration: none;
     color: ${colors.salmon};
   }
+
+  @media (max-width: 480px) {
+    margin-bottom: 16px;
+    margin-right: 0;
+  }
 `
 
 export const CartContainer = styled.div`
   text-align: center;
   font-size: 18px;
   font-weight: 900;
+
+  @media (max-width: 480px) {
+    margin-top: 16px;
+  }
 `

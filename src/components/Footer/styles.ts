@@ -17,6 +17,10 @@ export const FooterContainer = styled.div`
     text-align: center;
     font-size: 10px;
     font-weight: 400;
+
+    @media (max-width: 480px) {
+      max-width: 80%;
+    }
   }
 `
 

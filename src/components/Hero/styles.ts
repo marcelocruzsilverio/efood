@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import heroImg from '../../assets/images/hero.png'
 
 export const HeroContainer = styled.div`
-  width: 100%;
+  max-width: 100%;
   height: 384px;
   background-image: url(${heroImg});
   background-repeat: no-repeat;
