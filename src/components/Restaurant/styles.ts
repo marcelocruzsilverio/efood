@@ -21,10 +21,6 @@ export const ImageContainer = styled.div`
   @media (max-width: 1024px) {
     width: 100%;
   }
-
-  @media (max-width: 480px) {
-    width: 100%;
-  }
 `
 
 export const Infos = styled.div`

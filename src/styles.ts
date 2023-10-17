@@ -34,9 +34,5 @@ export const GlobalCss = createGlobalStyle`
   @media (max-width: 768px) {
     max-width: 80%;
   }
-
-  @media (max-width: 375px) {
-    max-width: 80%;
-  }
  }
 `
