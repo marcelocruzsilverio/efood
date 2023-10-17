@@ -40,7 +40,7 @@ export const Sidebar = styled.aside`
 `
 
 export const CartItem = styled.li`
-  background-color: ${colors.Beige};
+  background-color: ${colors.darkBeige};
   padding: 8px 0 12px 8px;
   margin-bottom: 16px;
   position: relative;
@@ -101,7 +101,7 @@ export const CartInfos = styled.div`
 `
 
 export const CartButton = styled.button`
-  background-color: ${colors.Beige};
+  background-color: ${colors.darkBeige};
   max-width: 100%;
   width: 100%;
   padding: 4px 0px;
