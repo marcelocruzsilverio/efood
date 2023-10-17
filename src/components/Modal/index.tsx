@@ -1,3 +1,4 @@
+import { useDispatch } from 'react-redux'
 import close from '../../assets/images/close 1.png'
 import { MenuItem } from '../../pages/Home'
 import {
@@ -12,12 +13,14 @@ import {
   Portion
 } from './styles'
 
+import { add, open } from '../../store/reducers/cart'
+
 interface MenuModalProps {
   menu: MenuItem
   onClose: () => void // Função para fechar o modal
 }
 
-const formataPreco = (preco = 0) => {
+export const formataPreco = (preco = 0) => {
   return new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL'
@@ -25,6 +28,13 @@ const formataPreco = (preco = 0) => {
 }
 
 const MenuModal = ({ menu, onClose }: MenuModalProps) => {
+  const dispatch = useDispatch()
+
+  const addToCart = () => {
+    dispatch(add(menu))
+    dispatch(open())
+    onClose()
+  }
   return (
     <>
       <ModalWrapper>
@@ -41,7 +51,7 @@ const MenuModal = ({ menu, onClose }: MenuModalProps) => {
               <MenuModalDescription>{menu.descricao}</MenuModalDescription>
             </DescriptionContainer>
             <Portion>Serve {menu.porcao}</Portion>
-            <ModalButton>
+            <ModalButton onClick={addToCart}>
               Adicionar ao Carrinho - <span>{formataPreco(menu.preco)}</span>
             </ModalButton>
           </div>

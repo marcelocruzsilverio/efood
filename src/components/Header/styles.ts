@@ -42,6 +42,7 @@ export const CartContainer = styled.div`
   text-align: center;
   font-size: 18px;
   font-weight: 900;
+  cursor: pointer;
 
   @media (max-width: 480px) {
     margin-top: 16px;
