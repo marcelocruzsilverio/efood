@@ -1,15 +1,19 @@
 import { useState } from 'react'
 import { useFormik } from 'formik'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import * as Yup from 'yup'
+import InputMask from 'react-input-mask'
 
+import Card from '../Card'
+
+import { clear, close } from '../../store/reducers/cart'
 import { usePurchaseMutation } from '../../services/api'
 
 import { parseToBrl } from '../../utils'
 
-import Card from '../Card'
-
 import * as S from './styles'
-import { Link } from 'react-router-dom'
+import { RootReducer } from '../../store'
 
 interface CheckoutProps {
   handleBackToCart: () => void
@@ -17,9 +21,12 @@ interface CheckoutProps {
 }
 
 const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
+  const { items } = useSelector((state: RootReducer) => state.cart)
   const [continuePayment, setContinuePayment] = useState(false)
 
-  const [purchase, { isSuccess, data }] = usePurchaseMutation()
+  const [purchase, { isSuccess, data, isLoading }] = usePurchaseMutation()
+
+  const dispatch = useDispatch()
 
   const form = useFormik({
     initialValues: {
@@ -45,36 +52,20 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
       city: Yup.string()
         .min(3, 'O campo precisa ter pelo menos 3 caracteres')
         .required('O campo é obrigatório'),
-      cep: Yup.string()
-        .min(8, 'O campo precisa ter 8 caracteres')
-        .max(8, 'O campo precisa ter 8 caracteres')
-        .required('O campo é obrigatório'),
+      cep: Yup.string().required('O campo é obrigatório'),
       addressNumber: Yup.string()
         .min(1, 'O campo precisa ter pelo menos 1 caracteres')
         .required('O campo é obrigatório'),
       cardOwnerName: Yup.string()
         .min(5, 'O nome precisa ter pelo menos 5 caracteres')
         .required('O campo é obrigatório'),
-      cardNumber: Yup.string()
-        .min(8, 'O campo precisa ter 8 caracteres')
-        .max(8, 'O campo precisa ter 8 caracteres')
-        .required('O campo é obrigatório'),
-      cardCode: Yup.string()
-        .min(3, 'O campo precisa ter 3 caracteres')
-        .max(3, 'O campo precisa ter 3 caracteres')
-        .required('O campo é obrigatório'),
-      expireMonth: Yup.string()
-        .min(2, 'O campo precisa ter 2 caracteres')
-        .max(2, 'O campo precisa ter 2 caracteres')
-        .required('O campo é obrigatório'),
-      expireYear: Yup.string()
-        .min(4, 'O campo precisa ter 4 caracteres')
-        .max(4, 'O campo precisa ter 4 caracteres')
-        .required('O campo é obrigatório')
+      cardNumber: Yup.string().required('O campo é obrigatório'),
+      cardCode: Yup.string().required('O campo é obrigatório'),
+      expireMonth: Yup.string().required('O campo é obrigatório'),
+      expireYear: Yup.string().required('O campo é obrigatório')
     }),
 
     onSubmit: (values) => {
-      console.log(values)
       purchase({
         delivery: {
           receiver: values.fullName,
@@ -97,12 +88,10 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
             }
           }
         },
-        products: [
-          {
-            id: 1,
-            price: 10
-          }
-        ]
+        products: items.map((item) => ({
+          id: item.id,
+          price: item.preco
+        }))
       })
     }
   })
@@ -123,12 +112,19 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
     return hasError
   }
 
+  const handleConclusion = () => {
+    if (isSuccess) {
+      dispatch(clear()) // Limpa o carrinho
+      dispatch(close()) // Fecha o carrinho
+    }
+  }
+
   return (
     <>
-      {isSuccess ? (
+      {isSuccess && data ? (
         <Card>
           <S.Sidebar>
-            <h2>Pedido realizado - {data?.orderId}</h2>
+            <h2>Pedido realizado - {data.orderId}</h2>
             <p>
               Estamos felizes em informar que seu pedido já está em processo de
               preparação e, em breve, será entregue no endereço fornecido.
@@ -146,10 +142,11 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
               Esperamos que desfrute de uma deliciosa e agradável experiência
               gastronômica. Bom apetite!
             </p>
-            <S.ConclusionButton>
-              {' '}
-              <Link to={'/'}>Concluir</Link>
-            </S.ConclusionButton>
+            <Link to={'/'}>
+              <S.ConclusionButton onClick={handleConclusion}>
+                Concluir
+              </S.ConclusionButton>
+            </Link>
           </S.Sidebar>
         </Card>
       ) : (
@@ -200,7 +197,7 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                   <S.Row>
                     <S.InputGroup>
                       <label htmlFor="cep">CEP</label>
-                      <input
+                      <InputMask
                         id="cep"
                         type="text"
                         name="cep"
@@ -208,6 +205,7 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                         onChange={form.handleChange}
                         onBlur={form.handleBlur}
                         className={checkInputHasError('cep') ? 'error' : ''}
+                        mask="99.999-999"
                       />
                     </S.InputGroup>
                     <S.InputGroup>
@@ -269,7 +267,7 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                   <S.Row>
                     <S.InputGroup>
                       <label htmlFor="cardNumber">Número do cartão</label>
-                      <input
+                      <InputMask
                         id="cardNumber"
                         type="text"
                         name="cardNumber"
@@ -279,11 +277,12 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                         className={
                           checkInputHasError('cardNumber') ? 'error' : ''
                         }
+                        mask="9999 9999 9999 9999"
                       />
                     </S.InputGroup>
                     <S.InputGroup>
                       <label htmlFor="cardCode">CVV</label>
-                      <input
+                      <InputMask
                         id="cardCode"
                         type="text"
                         name="cardCode"
@@ -293,13 +292,14 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                         className={
                           checkInputHasError('cardCode') ? 'error' : ''
                         }
+                        mask="999"
                       />
                     </S.InputGroup>
                   </S.Row>
                   <S.Row>
                     <S.InputGroup>
                       <label htmlFor="expireMonth">Mês de Vencimento</label>
-                      <input
+                      <InputMask
                         id="expireMonth"
                         type="text"
                         name="expireMonth"
@@ -309,11 +309,12 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                         className={
                           checkInputHasError('expireMonth') ? 'error' : ''
                         }
+                        mask="99"
                       />
                     </S.InputGroup>
                     <S.InputGroup>
                       <label htmlFor="expireYear">Ano de vencimento</label>
-                      <input
+                      <InputMask
                         id="expireYear"
                         type="text"
                         name="expireYear"
@@ -323,11 +324,14 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                         className={
                           checkInputHasError('expireYear') ? 'error' : ''
                         }
+                        mask="99"
                       />
                     </S.InputGroup>
                   </S.Row>
-                  <S.CheckoutButton type="submit">
-                    Finalizar Pagamento
+                  <S.CheckoutButton type="submit" disabled={isLoading}>
+                    {isLoading
+                      ? 'Finalizando Pagamento...'
+                      : 'Finalizar Pagamento'}
                   </S.CheckoutButton>
                   <S.CheckoutButton
                     onClick={handleBackToDeliveryForm}

@@ -7,13 +7,18 @@ import Header from '../../components/Header'
 
 import MenuList from '../../components/MenuList'
 import Cart from '../../components/Cart'
+import Loader from '../../components/Loader'
+
+type Menus = {
+  id: string
+}
 
 const RestaurantPage = () => {
-  const { id } = useParams()
-  const { data: restaurantData } = useGetMenusQuery(id!)
+  const { id } = useParams() as Menus
+  const { data: restaurantData } = useGetMenusQuery(id)
 
   if (!restaurantData) {
-    return <h3>Carregando...</h3>
+    return <Loader />
   }
 
   return (

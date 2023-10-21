@@ -38,8 +38,10 @@ const Header = () => {
             <Link to="/">
               <img src={logo} alt="Efood logo" />
             </Link>
-            <S.CartContainer onClick={openCart}>
-              {items.length} produto(s) no carrinho
+            <S.CartContainer role="button" onClick={openCart}>
+              {items.length === 0
+                ? 'O carrinho está vazio'
+                : `${items.length} produto(s) no carrinho`}
             </S.CartContainer>
           </S.LinkContainer>
         </nav>

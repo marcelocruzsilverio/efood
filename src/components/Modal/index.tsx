@@ -6,8 +6,6 @@ import { parseToBrl } from '../../utils'
 
 import close from '../../assets/images/close 1.png'
 
-import { MenuItem } from '../../pages/Home'
-
 import * as S from './styles'
 
 interface MenuModalProps {

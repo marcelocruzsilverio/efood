@@ -36,25 +36,25 @@ const Restaurant = ({
           <Tag>{category}</Tag>
         </S.Infos>
       </S.ImageContainer>
-      <S.RestaurantInfoContainer>
-        <S.RestaurantInfos>
-          <h2>{title}</h2>
-          <div>
-            <span>{rate}</span>
-            <img src={star} alt="avaliação do site" />
-          </div>
-        </S.RestaurantInfos>
-        <S.Description>{description}</S.Description>
-        <S.MoreInfoButton>
-          <Link
-            title="Clique aqui para ver mais detalhes sobre o restaurante"
-            to={`/restaurantPage/${id}`}
-          >
-            Saiba Mais
-          </Link>
-        </S.MoreInfoButton>
-      </S.RestaurantInfoContainer>
     </Link>
+    <S.RestaurantInfoContainer>
+      <S.RestaurantInfos>
+        <h2>{title}</h2>
+        <div>
+          <span>{rate}</span>
+          <img src={star} alt="avaliação do site" />
+        </div>
+      </S.RestaurantInfos>
+      <S.Description>{description}</S.Description>
+      <S.MoreInfoButton>
+        <Link
+          title="Clique aqui para ver mais detalhes sobre o restaurante"
+          to={`/restaurantPage/${id}`}
+        >
+          Saiba Mais
+        </Link>
+      </S.MoreInfoButton>
+    </S.RestaurantInfoContainer>
   </S.RestaurantCardWrapper>
 )
 
