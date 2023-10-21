@@ -24,6 +24,7 @@ const RestaurantPage = () => {
         restaurantTitle={restaurantData.titulo}
       />
       <MenuList menus={restaurantData.cardapio} />
+
       <Cart />
     </>
   )
