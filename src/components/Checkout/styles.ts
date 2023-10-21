@@ -28,6 +28,12 @@ export const Sidebar = styled.aside`
     margin-top: 24px;
   }
 
+  a {
+    text-decoration: none;
+    color: ${colors.salmon};
+    cursor: pointer;
+  }
+
   @media (max-width: 480px) {
     width: 80%;
   }

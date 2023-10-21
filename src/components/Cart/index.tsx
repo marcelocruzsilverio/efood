@@ -1,18 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { open, close, remove } from '../../store/reducers/cart'
-import { formataPreco } from '../Modal'
-
-import {
-  CartButton,
-  CartContainer,
-  CartInfos,
-  CartItem,
-  Overlay,
-  Sidebar
-} from './styles'
-import { RootReducer } from '../../store'
-import Checkout from '../Checkout'
 import { useState } from 'react'
+
+import { RootReducer } from '../../store'
+import { open, close, remove } from '../../store/reducers/cart'
+
+import { parseToBrl } from '../../utils'
+
+import Checkout from '../Checkout'
+
+import * as S from './styles'
 
 const Cart = () => {
   const { isOpen, items } = useSelector((state: RootReducer) => state.cart)
@@ -46,32 +42,37 @@ const Cart = () => {
 
   return (
     <>
-      <CartContainer className={isOpen ? 'is-open' : ''}>
-        <Overlay onClick={closeCart}></Overlay>
-        <Sidebar>
+      <S.CartContainer className={isOpen ? 'is-open' : ''}>
+        <S.Overlay onClick={closeCart}></S.Overlay>
+        <S.Sidebar>
           <ul>
             {items.map((item) => (
-              <CartItem key={item.id}>
+              <S.CartItem key={item.id}>
                 <img src={item.foto} alt="" />
 
                 <div>
                   <h2>{item.nome}</h2>
-                  <p>{formataPreco(item.preco)}</p>
+                  <p>{parseToBrl(item.preco)}</p>
                   <button onClick={() => removeItem(item.id)} type="button" />
                 </div>
-              </CartItem>
+              </S.CartItem>
             ))}
           </ul>
-          <CartInfos>
+          <S.CartInfos>
             <p>Valor total</p>
-            <p>{formataPreco(getTotalPrice())}</p>
-          </CartInfos>
-          <CartButton onClick={handleDelivery}>
+            <p>{parseToBrl(getTotalPrice())}</p>
+          </S.CartInfos>
+          <S.CartButton onClick={handleDelivery}>
             Continuar com a entrega
-          </CartButton>
-        </Sidebar>
-      </CartContainer>
-      {continueDelivery && <Checkout handleBackToCart={handleBackToCart} />}
+          </S.CartButton>
+        </S.Sidebar>
+      </S.CartContainer>
+      {continueDelivery && (
+        <Checkout
+          handleBackToCart={handleBackToCart}
+          getTotalPrice={getTotalPrice}
+        />
+      )}
     </>
   )
 }

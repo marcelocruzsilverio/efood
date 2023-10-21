@@ -1,15 +1,11 @@
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import logo from '../../assets/images/logo.svg'
-import {
-  CartContainer,
-  HeaderBar,
-  LinkContainer,
-  LinkRestaurant
-} from './styles'
+import { RootReducer } from '../../store'
 
 import { open } from '../../store/reducers/cart'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootReducer } from '../../store'
+
+import logo from '../../assets/images/logo.svg'
+import * as S from './styles'
 
 const Header = () => {
   const dispatch = useDispatch()
@@ -20,23 +16,28 @@ const Header = () => {
   }
 
   return (
-    <HeaderBar>
+    <S.HeaderBar>
       <div className="container">
         <nav>
-          <LinkContainer>
-            <LinkRestaurant>
-              <Link to="/">Restaurantes</Link>
-            </LinkRestaurant>
+          <S.LinkContainer>
+            <S.LinkRestaurant>
+              <Link
+                title="Clique aqui para acessar a página de restaurantes"
+                to="/"
+              >
+                Restaurantes
+              </Link>
+            </S.LinkRestaurant>
             <Link to="/">
               <img src={logo} alt="Efood logo" />
             </Link>
-            <CartContainer onClick={openCart}>
+            <S.CartContainer onClick={openCart}>
               {items.length} produto(s) no carrinho
-            </CartContainer>
-          </LinkContainer>
+            </S.CartContainer>
+          </S.LinkContainer>
         </nav>
       </div>
-    </HeaderBar>
+    </S.HeaderBar>
   )
 }
 

@@ -1,16 +1,16 @@
 import logo from '../../assets/images/logo.svg'
-import { HeroContainer, LogoContainer, Title, TitleContainer } from './styles'
+import * as S from './styles'
 
 const Hero = () => (
-  <HeroContainer>
-    <LogoContainer>
+  <S.HeroContainer>
+    <S.LogoContainer>
       <img src={logo} alt="Efood logo" />
-    </LogoContainer>
+    </S.LogoContainer>
 
-    <TitleContainer>
-      <Title>Viva experiências gastronômicas no conforto da sua casa</Title>
-    </TitleContainer>
-  </HeroContainer>
+    <S.TitleContainer>
+      <S.Title>Viva experiências gastronômicas no conforto da sua casa</S.Title>
+    </S.TitleContainer>
+  </S.HeroContainer>
 )
 
 export default Hero

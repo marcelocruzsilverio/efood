@@ -1,9 +1,10 @@
 import { useState } from 'react'
+
 import { MenuItem } from '../../pages/Home'
 import MenuModal from '../Modal'
+import Menu from '../Menu'
 
 import { MenuCardList } from './styles'
-import Menu from '../Menu'
 
 type MenuListProps = {
   menus: MenuItem[]

@@ -2,15 +2,8 @@ import { Link } from 'react-router-dom'
 
 import star from '../../assets/images/star.png'
 import Tag from '../Tag'
-import {
-  Description,
-  ImageContainer,
-  Infos,
-  MoreInfoButton,
-  RestaurantCardWrapper,
-  RestaurantInfoContainer,
-  RestaurantInfos
-} from './styles'
+
+import * as S from './styles'
 
 type Props = {
   id: number
@@ -31,28 +24,38 @@ const Restaurant = ({
   rate,
   description
 }: Props) => (
-  <RestaurantCardWrapper>
-    <ImageContainer>
-      <img src={image} alt="" />
-      <Infos>
-        {emphasis && <Tag>Destaque da Semana</Tag>}
-        <Tag>{category}</Tag>
-      </Infos>
-    </ImageContainer>
-    <RestaurantInfoContainer>
-      <RestaurantInfos>
-        <h2>{title}</h2>
-        <div>
-          <span>{rate}</span>
-          <img src={star} alt="avaliação do site" />
-        </div>
-      </RestaurantInfos>
-      <Description>{description}</Description>
-      <MoreInfoButton>
-        <Link to={`/restaurantPage/${id}`}>Saiba Mais</Link>
-      </MoreInfoButton>
-    </RestaurantInfoContainer>
-  </RestaurantCardWrapper>
+  <S.RestaurantCardWrapper>
+    <Link
+      title="Clique aqui para ver mais detalhes sobre o restaurante"
+      to={`/restaurantPage/${id}`}
+    >
+      <S.ImageContainer>
+        <img src={image} alt="" />
+        <S.Infos>
+          {emphasis && <Tag>Destaque da Semana</Tag>}
+          <Tag>{category}</Tag>
+        </S.Infos>
+      </S.ImageContainer>
+      <S.RestaurantInfoContainer>
+        <S.RestaurantInfos>
+          <h2>{title}</h2>
+          <div>
+            <span>{rate}</span>
+            <img src={star} alt="avaliação do site" />
+          </div>
+        </S.RestaurantInfos>
+        <S.Description>{description}</S.Description>
+        <S.MoreInfoButton>
+          <Link
+            title="Clique aqui para ver mais detalhes sobre o restaurante"
+            to={`/restaurantPage/${id}`}
+          >
+            Saiba Mais
+          </Link>
+        </S.MoreInfoButton>
+      </S.RestaurantInfoContainer>
+    </Link>
+  </S.RestaurantCardWrapper>
 )
 
 export default Restaurant

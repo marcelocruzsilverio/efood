@@ -1,30 +1,18 @@
 import { useDispatch } from 'react-redux'
-import close from '../../assets/images/close 1.png'
-import { MenuItem } from '../../pages/Home'
-import {
-  CloseModal,
-  DescriptionContainer,
-  ImageModalContainer,
-  MenuModalDescription,
-  ModalButton,
-  ModalContent,
-  ModalTitle,
-  ModalWrapper,
-  Portion
-} from './styles'
 
 import { add, open } from '../../store/reducers/cart'
+
+import { parseToBrl } from '../../utils'
+
+import close from '../../assets/images/close 1.png'
+
+import { MenuItem } from '../../pages/Home'
+
+import * as S from './styles'
 
 interface MenuModalProps {
   menu: MenuItem
   onClose: () => void // Função para fechar o modal
-}
-
-export const formataPreco = (preco = 0) => {
-  return new Intl.NumberFormat('pt-BR', {
-    style: 'currency',
-    currency: 'BRL'
-  }).format(preco)
 }
 
 const MenuModal = ({ menu, onClose }: MenuModalProps) => {
@@ -37,27 +25,27 @@ const MenuModal = ({ menu, onClose }: MenuModalProps) => {
   }
   return (
     <>
-      <ModalWrapper>
-        <ModalContent>
-          <CloseModal onClick={onClose}>
+      <S.ModalWrapper>
+        <S.ModalContent>
+          <S.CloseModal onClick={onClose}>
             <img src={close} alt="ícone de fechar" />
-          </CloseModal>
-          <ImageModalContainer>
+          </S.CloseModal>
+          <S.ImageModalContainer>
             <img src={menu.foto} alt="" />
-          </ImageModalContainer>
+          </S.ImageModalContainer>
           <div>
-            <ModalTitle>{menu.nome}</ModalTitle>
-            <DescriptionContainer>
-              <MenuModalDescription>{menu.descricao}</MenuModalDescription>
-            </DescriptionContainer>
-            <Portion>Serve {menu.porcao}</Portion>
-            <ModalButton onClick={addToCart}>
-              Adicionar ao Carrinho - <span>{formataPreco(menu.preco)}</span>
-            </ModalButton>
+            <S.ModalTitle>{menu.nome}</S.ModalTitle>
+            <S.DescriptionContainer>
+              <S.MenuModalDescription>{menu.descricao}</S.MenuModalDescription>
+            </S.DescriptionContainer>
+            <S.Portion>Serve {menu.porcao}</S.Portion>
+            <S.ModalButton onClick={addToCart}>
+              Adicionar ao Carrinho - <span>{parseToBrl(menu.preco)}</span>
+            </S.ModalButton>
           </div>
-        </ModalContent>
+        </S.ModalContent>
         <div className="overlay" onClick={onClose}></div>
-      </ModalWrapper>
+      </S.ModalWrapper>
     </>
   )
 }

@@ -1,14 +1,14 @@
-import { Container, Overlay } from './styles'
+import * as S from './styles'
 
 type Props = {
   children: JSX.Element
 }
 
 const Card = ({ children }: Props) => (
-  <Container>
-    <Overlay></Overlay>
+  <S.Container>
+    <S.Overlay></S.Overlay>
     {children}
-  </Container>
+  </S.Container>
 )
 
 export default Card

@@ -1,21 +1,22 @@
 import { useState } from 'react'
-import Card from '../Card'
-import {
-  CheckoutButton,
-  ConclusionButton,
-  InputGroup,
-  Row,
-  Sidebar
-} from './styles'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+
 import { usePurchaseMutation } from '../../services/api'
+
+import { parseToBrl } from '../../utils'
+
+import Card from '../Card'
+
+import * as S from './styles'
+import { Link } from 'react-router-dom'
 
 interface CheckoutProps {
   handleBackToCart: () => void
+  getTotalPrice: () => number
 }
 
-const Checkout = ({ handleBackToCart }: CheckoutProps) => {
+const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
   const [continuePayment, setContinuePayment] = useState(false)
 
   const [purchase, { isSuccess, data }] = usePurchaseMutation()
@@ -126,7 +127,7 @@ const Checkout = ({ handleBackToCart }: CheckoutProps) => {
     <>
       {isSuccess ? (
         <Card>
-          <Sidebar>
+          <S.Sidebar>
             <h2>Pedido realizado - {data.orderId}</h2>
             <p>
               Estamos felizes em informar que seu pedido já está em processo de
@@ -145,17 +146,20 @@ const Checkout = ({ handleBackToCart }: CheckoutProps) => {
               Esperamos que desfrute de uma deliciosa e agradável experiência
               gastronômica. Bom apetite!
             </p>
-            <ConclusionButton>Concluir</ConclusionButton>
-          </Sidebar>
+            <S.ConclusionButton>
+              {' '}
+              <Link to={'/'}>Concluir</Link>
+            </S.ConclusionButton>
+          </S.Sidebar>
         </Card>
       ) : (
         <form onSubmit={form.handleSubmit}>
           <Card>
-            <Sidebar>
+            <S.Sidebar>
               {!continuePayment ? (
                 <>
                   <h2>Entrega</h2>
-                  <InputGroup>
+                  <S.InputGroup>
                     <label htmlFor="fullName">Quem irá receber</label>
                     <input
                       id="fullName"
@@ -168,8 +172,8 @@ const Checkout = ({ handleBackToCart }: CheckoutProps) => {
                     <small>
                       {getErrorMessage('fullName', form.errors.fullName)}
                     </small>
-                  </InputGroup>
-                  <InputGroup>
+                  </S.InputGroup>
+                  <S.InputGroup>
                     <label htmlFor="deliveryAddress">Endereço</label>
                     <input
                       id="deliveryAddress"
@@ -185,8 +189,8 @@ const Checkout = ({ handleBackToCart }: CheckoutProps) => {
                         form.errors.deliveryAddress
                       )}
                     </small>
-                  </InputGroup>
-                  <InputGroup>
+                  </S.InputGroup>
+                  <S.InputGroup>
                     <label htmlFor="city">Cidade</label>
                     <input
                       id="city"
@@ -197,9 +201,9 @@ const Checkout = ({ handleBackToCart }: CheckoutProps) => {
                       onBlur={form.handleBlur}
                     />
                     <small>{getErrorMessage('city', form.errors.city)}</small>
-                  </InputGroup>
-                  <Row>
-                    <InputGroup>
+                  </S.InputGroup>
+                  <S.Row>
+                    <S.InputGroup>
                       <label htmlFor="cep">CEP</label>
                       <input
                         id="cep"
@@ -210,8 +214,8 @@ const Checkout = ({ handleBackToCart }: CheckoutProps) => {
                         onBlur={form.handleBlur}
                       />
                       <small>{getErrorMessage('cep', form.errors.cep)}</small>
-                    </InputGroup>
-                    <InputGroup>
+                    </S.InputGroup>
+                    <S.InputGroup>
                       <label htmlFor="addressNumber">Número</label>
                       <input
                         id="addressNumber"
@@ -227,9 +231,9 @@ const Checkout = ({ handleBackToCart }: CheckoutProps) => {
                           form.errors.addressNumber
                         )}
                       </small>
-                    </InputGroup>
-                  </Row>
-                  <InputGroup>
+                    </S.InputGroup>
+                  </S.Row>
+                  <S.InputGroup>
                     <label htmlFor="complement">Complemento (opcional)</label>
                     <input
                       id="complement"
@@ -239,19 +243,24 @@ const Checkout = ({ handleBackToCart }: CheckoutProps) => {
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
                     />
-                  </InputGroup>
+                  </S.InputGroup>
 
-                  <CheckoutButton onClick={handleContinuePayment} type="button">
+                  <S.CheckoutButton
+                    onClick={handleContinuePayment}
+                    type="button"
+                  >
                     Continuar com o pagamento
-                  </CheckoutButton>
-                  <CheckoutButton onClick={handleBackToCart} type="button">
+                  </S.CheckoutButton>
+                  <S.CheckoutButton onClick={handleBackToCart} type="button">
                     Voltar para o carrinho
-                  </CheckoutButton>
+                  </S.CheckoutButton>
                 </>
               ) : (
                 <>
-                  <h2>Pagamento - Valor a pagar R$ 190,00</h2>
-                  <InputGroup>
+                  <h2>
+                    Pagamento - Valor a pagar {parseToBrl(getTotalPrice())}
+                  </h2>
+                  <S.InputGroup>
                     <label htmlFor="cardOwnerName">Nome no cartão</label>
                     <input
                       id="cardOwnerName"
@@ -267,9 +276,9 @@ const Checkout = ({ handleBackToCart }: CheckoutProps) => {
                         form.errors.cardOwnerName
                       )}
                     </small>
-                  </InputGroup>
-                  <Row>
-                    <InputGroup>
+                  </S.InputGroup>
+                  <S.Row>
+                    <S.InputGroup>
                       <label htmlFor="cardNumber">Número do cartão</label>
                       <input
                         id="cardNumber"
@@ -282,8 +291,8 @@ const Checkout = ({ handleBackToCart }: CheckoutProps) => {
                       <small>
                         {getErrorMessage('cardNumber', form.errors.cardNumber)}
                       </small>
-                    </InputGroup>
-                    <InputGroup>
+                    </S.InputGroup>
+                    <S.InputGroup>
                       <label htmlFor="cardCode">CVV</label>
                       <input
                         id="cardCode"
@@ -296,10 +305,10 @@ const Checkout = ({ handleBackToCart }: CheckoutProps) => {
                       <small>
                         {getErrorMessage('cardCode', form.errors.cardCode)}
                       </small>
-                    </InputGroup>
-                  </Row>
-                  <Row>
-                    <InputGroup>
+                    </S.InputGroup>
+                  </S.Row>
+                  <S.Row>
+                    <S.InputGroup>
                       <label htmlFor="expireMonth">Mês de Vencimento</label>
                       <input
                         id="expireMonth"
@@ -315,8 +324,8 @@ const Checkout = ({ handleBackToCart }: CheckoutProps) => {
                           form.errors.expireMonth
                         )}
                       </small>
-                    </InputGroup>
-                    <InputGroup>
+                    </S.InputGroup>
+                    <S.InputGroup>
                       <label htmlFor="expireYear">Ano de vencimento</label>
                       <input
                         id="expireYear"
@@ -329,20 +338,20 @@ const Checkout = ({ handleBackToCart }: CheckoutProps) => {
                       <small>
                         {getErrorMessage('expireYear', form.errors.expireYear)}
                       </small>
-                    </InputGroup>
-                  </Row>
-                  <CheckoutButton type="submit">
+                    </S.InputGroup>
+                  </S.Row>
+                  <S.CheckoutButton type="submit">
                     Finalizar Pagamento
-                  </CheckoutButton>
-                  <CheckoutButton
+                  </S.CheckoutButton>
+                  <S.CheckoutButton
                     onClick={handleBackToDeliveryForm}
                     type="button"
                   >
                     Voltar para a edição de endereço
-                  </CheckoutButton>
+                  </S.CheckoutButton>
                 </>
               )}
-            </Sidebar>
+            </S.Sidebar>
           </Card>
         </form>
       )}

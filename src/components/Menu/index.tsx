@@ -1,11 +1,4 @@
-import {
-  AddButton,
-  Description,
-  ImageContainer,
-  MenuCardWrapper,
-  MenuInfoContainer,
-  MenuTitle
-} from './styles'
+import * as S from './styles'
 
 type Props = {
   id: number
@@ -17,18 +10,18 @@ type Props = {
 
 const Menu = ({ image, title, description, onAddToCart }: Props) => {
   return (
-    <MenuCardWrapper>
-      <ImageContainer>
+    <S.MenuCardWrapper>
+      <S.ImageContainer>
         <img src={image} alt="Menu image" />
-      </ImageContainer>
-      <MenuInfoContainer>
-        <MenuTitle>
+      </S.ImageContainer>
+      <S.MenuInfoContainer>
+        <S.MenuTitle>
           <h2>{title}</h2>
-        </MenuTitle>
-        <Description>{description}</Description>
-      </MenuInfoContainer>
-      <AddButton onClick={onAddToCart}>Adicionar ao Carrinho</AddButton>
-    </MenuCardWrapper>
+        </S.MenuTitle>
+        <S.Description>{description}</S.Description>
+      </S.MenuInfoContainer>
+      <S.AddButton onClick={onAddToCart}>Adicionar ao Carrinho</S.AddButton>
+    </S.MenuCardWrapper>
   )
 }
 

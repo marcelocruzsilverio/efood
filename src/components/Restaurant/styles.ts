@@ -6,6 +6,16 @@ export const RestaurantCardWrapper = styled.div`
   width: 100%;
   position: relative;
   background: ${colors.white};
+
+  a {
+    text-decoration: none;
+    color: ${colors.salmon};
+    cursor: pointer;
+  }
+`
+
+export const CustomLink = styled.div`
+  text-decoration: none;
 `
 
 export const ImageContainer = styled.div`

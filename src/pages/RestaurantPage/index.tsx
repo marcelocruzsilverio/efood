@@ -1,11 +1,12 @@
 import { useParams } from 'react-router-dom'
 
+import { useGetMenusQuery } from '../../services/api'
+
 import Banner from '../../components/Banner'
 import Header from '../../components/Header'
 
 import MenuList from '../../components/MenuList'
 import Cart from '../../components/Cart'
-import { useGetMenusQuery } from '../../services/api'
 
 const RestaurantPage = () => {
   const { id } = useParams()
