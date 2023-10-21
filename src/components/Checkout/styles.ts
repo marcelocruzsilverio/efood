@@ -53,12 +53,18 @@ export const InputGroup = styled.div`
   }
 
   input {
+    max-width: 100%;
     margin-bottom: 8px;
     background-color: ${colors.darkBeige};
     height: 32px;
     padding: 8px 0 8px 8px;
-    border: 1px solid ${colors.darkBeige};
+    border: 1px solid transparent;
     width: 100%;
+
+    &.error {
+      border: 1px solid ${colors.darkRed};
+      background-color: ${colors.red};
+    }
   }
 
   input#complement,

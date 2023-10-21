@@ -36,37 +36,39 @@ const Cart = () => {
 
   const getTotalPrice = () => {
     return items.reduce((acumulator, actualValue) => {
-      return (acumulator += actualValue.preco!)
+      return (acumulator += actualValue.preco)
     }, 0)
   }
 
   return (
     <>
-      <S.CartContainer className={isOpen ? 'is-open' : ''}>
-        <S.Overlay onClick={closeCart}></S.Overlay>
-        <S.Sidebar>
-          <ul>
-            {items.map((item) => (
-              <S.CartItem key={item.id}>
-                <img src={item.foto} alt="" />
+      {items.length > 0 && (
+        <S.CartContainer className={isOpen ? 'is-open' : ''}>
+          <S.Overlay onClick={closeCart}></S.Overlay>
+          <S.Sidebar>
+            <ul>
+              {items.map((item) => (
+                <S.CartItem key={item.id}>
+                  <img src={item.foto} alt="" />
 
-                <div>
-                  <h2>{item.nome}</h2>
-                  <p>{parseToBrl(item.preco)}</p>
-                  <button onClick={() => removeItem(item.id)} type="button" />
-                </div>
-              </S.CartItem>
-            ))}
-          </ul>
-          <S.CartInfos>
-            <p>Valor total</p>
-            <p>{parseToBrl(getTotalPrice())}</p>
-          </S.CartInfos>
-          <S.CartButton onClick={handleDelivery}>
-            Continuar com a entrega
-          </S.CartButton>
-        </S.Sidebar>
-      </S.CartContainer>
+                  <div>
+                    <h2>{item.nome}</h2>
+                    <p>{parseToBrl(item.preco)}</p>
+                    <button onClick={() => removeItem(item.id)} type="button" />
+                  </div>
+                </S.CartItem>
+              ))}
+            </ul>
+            <S.CartInfos>
+              <p>Valor total</p>
+              <p>{parseToBrl(getTotalPrice())}</p>
+            </S.CartInfos>
+            <S.CartButton onClick={handleDelivery}>
+              Continuar com a entrega
+            </S.CartButton>
+          </S.Sidebar>
+        </S.CartContainer>
+      )}
       {continueDelivery && (
         <Checkout
           handleBackToCart={handleBackToCart}

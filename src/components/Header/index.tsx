@@ -11,8 +11,15 @@ const Header = () => {
   const dispatch = useDispatch()
   const { items } = useSelector((state: RootReducer) => state.cart)
 
+  const handleClick = () => {
+    if (items.length === 0) {
+      alert('Por favor, adicione produtos ao carrinho!')
+    }
+  }
+
   const openCart = () => {
     dispatch(open())
+    handleClick()
   }
 
   return (

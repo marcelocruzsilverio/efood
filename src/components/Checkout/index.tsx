@@ -115,12 +115,12 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
     setContinuePayment(false)
   }
 
-  const getErrorMessage = (fieldName: string, message?: string) => {
+  const checkInputHasError = (fieldName: string) => {
     const isTouched = fieldName in form.touched
     const isInvalid = fieldName in form.errors
+    const hasError = isTouched && isInvalid
 
-    if (isTouched && isInvalid) return message
-    return ''
+    return hasError
   }
 
   return (
@@ -128,7 +128,7 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
       {isSuccess ? (
         <Card>
           <S.Sidebar>
-            <h2>Pedido realizado - {data.orderId}</h2>
+            <h2>Pedido realizado - {data?.orderId}</h2>
             <p>
               Estamos felizes em informar que seu pedido já está em processo de
               preparação e, em breve, será entregue no endereço fornecido.
@@ -168,10 +168,8 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                       value={form.values.fullName}
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
+                      className={checkInputHasError('fullName') ? 'error' : ''}
                     />
-                    <small>
-                      {getErrorMessage('fullName', form.errors.fullName)}
-                    </small>
                   </S.InputGroup>
                   <S.InputGroup>
                     <label htmlFor="deliveryAddress">Endereço</label>
@@ -182,13 +180,10 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                       value={form.values.deliveryAddress}
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
+                      className={
+                        checkInputHasError('deliveryAddress') ? 'error' : ''
+                      }
                     />
-                    <small>
-                      {getErrorMessage(
-                        'deliveryAddress',
-                        form.errors.deliveryAddress
-                      )}
-                    </small>
                   </S.InputGroup>
                   <S.InputGroup>
                     <label htmlFor="city">Cidade</label>
@@ -199,8 +194,8 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                       value={form.values.city}
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
+                      className={checkInputHasError('city') ? 'error' : ''}
                     />
-                    <small>{getErrorMessage('city', form.errors.city)}</small>
                   </S.InputGroup>
                   <S.Row>
                     <S.InputGroup>
@@ -212,8 +207,8 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                         value={form.values.cep}
                         onChange={form.handleChange}
                         onBlur={form.handleBlur}
+                        className={checkInputHasError('cep') ? 'error' : ''}
                       />
-                      <small>{getErrorMessage('cep', form.errors.cep)}</small>
                     </S.InputGroup>
                     <S.InputGroup>
                       <label htmlFor="addressNumber">Número</label>
@@ -224,13 +219,10 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                         value={form.values.addressNumber}
                         onChange={form.handleChange}
                         onBlur={form.handleBlur}
+                        className={
+                          checkInputHasError('addressNumber') ? 'error' : ''
+                        }
                       />
-                      <small>
-                        {getErrorMessage(
-                          'addressNumber',
-                          form.errors.addressNumber
-                        )}
-                      </small>
                     </S.InputGroup>
                   </S.Row>
                   <S.InputGroup>
@@ -269,13 +261,10 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                       value={form.values.cardOwnerName}
                       onChange={form.handleChange}
                       onBlur={form.handleBlur}
+                      className={
+                        checkInputHasError('cardOwnerName') ? 'error' : ''
+                      }
                     />
-                    <small>
-                      {getErrorMessage(
-                        'cardOwnerName',
-                        form.errors.cardOwnerName
-                      )}
-                    </small>
                   </S.InputGroup>
                   <S.Row>
                     <S.InputGroup>
@@ -287,10 +276,10 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                         value={form.values.cardNumber}
                         onChange={form.handleChange}
                         onBlur={form.handleBlur}
+                        className={
+                          checkInputHasError('cardNumber') ? 'error' : ''
+                        }
                       />
-                      <small>
-                        {getErrorMessage('cardNumber', form.errors.cardNumber)}
-                      </small>
                     </S.InputGroup>
                     <S.InputGroup>
                       <label htmlFor="cardCode">CVV</label>
@@ -301,10 +290,10 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                         value={form.values.cardCode}
                         onChange={form.handleChange}
                         onBlur={form.handleBlur}
+                        className={
+                          checkInputHasError('cardCode') ? 'error' : ''
+                        }
                       />
-                      <small>
-                        {getErrorMessage('cardCode', form.errors.cardCode)}
-                      </small>
                     </S.InputGroup>
                   </S.Row>
                   <S.Row>
@@ -317,13 +306,10 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                         value={form.values.expireMonth}
                         onChange={form.handleChange}
                         onBlur={form.handleBlur}
+                        className={
+                          checkInputHasError('expireMonth') ? 'error' : ''
+                        }
                       />
-                      <small>
-                        {getErrorMessage(
-                          'expireMonth',
-                          form.errors.expireMonth
-                        )}
-                      </small>
                     </S.InputGroup>
                     <S.InputGroup>
                       <label htmlFor="expireYear">Ano de vencimento</label>
@@ -334,10 +320,10 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                         value={form.values.expireYear}
                         onChange={form.handleChange}
                         onBlur={form.handleBlur}
+                        className={
+                          checkInputHasError('expireYear') ? 'error' : ''
+                        }
                       />
-                      <small>
-                        {getErrorMessage('expireYear', form.errors.expireYear)}
-                      </small>
                     </S.InputGroup>
                   </S.Row>
                   <S.CheckoutButton type="submit">
