@@ -5,6 +5,7 @@ import { RootReducer } from '../../store'
 import { open } from '../../store/reducers/cart'
 
 import logo from '../../assets/images/logo.svg'
+
 import * as S from './styles'
 
 const Header = () => {

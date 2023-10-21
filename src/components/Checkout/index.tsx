@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as Yup from 'yup'
 import InputMask from 'react-input-mask'
+import { RootReducer } from '../../store'
 
 import Card from '../Card'
 
@@ -13,7 +14,6 @@ import { usePurchaseMutation } from '../../services/api'
 import { parseToBrl } from '../../utils'
 
 import * as S from './styles'
-import { RootReducer } from '../../store'
 
 interface CheckoutProps {
   handleBackToCart: () => void

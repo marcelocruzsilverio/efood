@@ -1,12 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 
+import Checkout from '../Checkout'
+
 import { RootReducer } from '../../store'
 import { open, close, remove } from '../../store/reducers/cart'
 
 import { parseToBrl } from '../../utils'
-
-import Checkout from '../Checkout'
 
 import * as S from './styles'
 
