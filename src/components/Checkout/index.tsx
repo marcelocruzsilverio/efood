@@ -26,7 +26,6 @@ interface DeliveryFormValues {
   city: string
   cep: string
   addressNumber: string
-  // Outros campos do formulário de entrega
 }
 
 const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
@@ -110,10 +109,6 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
       })
     }
   })
-
-  // const handleContinuePayment = () => {
-  //   setContinuePayment(true)
-  // }
 
   const handleContinuePayment = () => {
     const requiredFields: (keyof DeliveryFormValues)[] = [
