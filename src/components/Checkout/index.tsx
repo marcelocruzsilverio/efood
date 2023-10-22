@@ -20,9 +20,19 @@ interface CheckoutProps {
   getTotalPrice: () => number
 }
 
+interface DeliveryFormValues {
+  fullName: string
+  deliveryAddress: string
+  city: string
+  cep: string
+  addressNumber: string
+  // Outros campos do formulário de entrega
+}
+
 const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
   const { items } = useSelector((state: RootReducer) => state.cart)
   const [continuePayment, setContinuePayment] = useState(false)
+  const [deliveryFormHasError, setDeliveryFormHasError] = useState(false)
 
   const [purchase, { isSuccess, data, isLoading }] = usePurchaseMutation()
 
@@ -61,7 +71,12 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
         .required('O campo é obrigatório'),
       cardNumber: Yup.string().required('O campo é obrigatório'),
       cardCode: Yup.string().required('O campo é obrigatório'),
-      expireMonth: Yup.string().required('O campo é obrigatório'),
+      expireMonth: Yup.string()
+        .required('O campo é obrigatório')
+        .matches(
+          /^(0[1-9]|1[0-2])$/,
+          'Mês inválido. Use um valor entre 01 e 12'
+        ),
       expireYear: Yup.string().required('O campo é obrigatório')
     }),
 
@@ -96,8 +111,29 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
     }
   })
 
+  // const handleContinuePayment = () => {
+  //   setContinuePayment(true)
+  // }
+
   const handleContinuePayment = () => {
-    setContinuePayment(true)
+    const requiredFields: (keyof DeliveryFormValues)[] = [
+      'fullName',
+      'deliveryAddress',
+      'city',
+      'cep',
+      'addressNumber'
+    ]
+
+    const hasDeliveryFormError = requiredFields.some(
+      (fieldName) => !form.values[fieldName]
+    )
+
+    if (hasDeliveryFormError) {
+      setDeliveryFormHasError(true)
+    } else {
+      setDeliveryFormHasError(false)
+      setContinuePayment(true)
+    }
   }
 
   const handleBackToDeliveryForm = () => {
@@ -244,6 +280,13 @@ const Checkout = ({ handleBackToCart, getTotalPrice }: CheckoutProps) => {
                   <S.CheckoutButton onClick={handleBackToCart} type="button">
                     Voltar para o carrinho
                   </S.CheckoutButton>
+
+                  {deliveryFormHasError && (
+                    <p className="error-message">
+                      Por favor, preencha todos os campos de entrega que são
+                      obrigatórios.
+                    </p>
+                  )}
                 </>
               ) : (
                 <>

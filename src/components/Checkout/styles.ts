@@ -34,6 +34,13 @@ export const Sidebar = styled.aside`
     cursor: pointer;
   }
 
+  .error-message {
+    color: ${colors.darkBeige};
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+  }
+
   @media (max-width: 480px) {
     width: 80%;
   }
